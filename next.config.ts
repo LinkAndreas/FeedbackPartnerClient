@@ -1,7 +1,11 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
-};
-
-export default nextConfig;
+/**
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = {
+  output: 'export',
+  basePath: '/FeedbackPartnerClient',
+  assetPrefix: '/FeedbackPartnerClient',
+  distDir: 'dist',
+}
+ 
+module.exports = nextConfig
