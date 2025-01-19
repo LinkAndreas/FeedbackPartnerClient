@@ -7,6 +7,8 @@ const nextConfig = {
     unoptimized: true,
   },
   distDir: 'dist',
+  basePath: '/FeedbackPartnerClient',
+  assetPrefix: '/FeedbackPartnerClient',
 }
  
 module.exports = nextConfig
