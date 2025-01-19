@@ -3,8 +3,9 @@
  */
 const nextConfig = {
   output: 'export',
-  basePath: '/FeedbackPartnerClient',
-  assetPrefix: '/FeedbackPartnerClient',
+  images: {
+    unoptimized: true,
+  },
   distDir: 'dist',
 }
  
