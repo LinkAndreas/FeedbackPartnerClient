@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from "react";
-import preview_data from "./existing_data";
-import generateNextRound from "./pairing_algorithm";
+import existing_data from "../app/existing_data";
+import generateNextRound from "../app/pairing_algorithm";
 
 export default function Overview() {
   const [participants, setParticipants] = useState<string>("");
@@ -30,7 +30,7 @@ export default function Overview() {
   };
 
   const loadExistingRounds = () => {
-    const data = preview_data();
+    const data = existing_data();
     setParticipants(data.participants.join("\n"));
     setRounds(
       data.previousRounds.map((round) =>
@@ -51,8 +51,8 @@ export default function Overview() {
     try {
       const nextRound: string[][] = generateNextRound(_participants, _previousRounds);
       addRound(nextRound);
-    } catch (error) {
-      setError("Es können keine weiteren Feedback-Paare ermittelt werden, ohne dass Paare erneut vorkommen. ");
+    } catch {
+      setError("Es können keine weiteren Feedback-Paare ermittelt werden, ohne dass Paare erneut vorkommen.");
     }
   };
 
@@ -81,7 +81,7 @@ export default function Overview() {
             {rounds.map((round, index) => (
               <div key={index} className="mb-2">
                 <h3 className="text-md font-semibold text-black dark:text-white">Runde {index + 1}</h3>
-                <p className="my-4 text-black dark:text-white">Feedback Paare aus Runde {index + 1} der Form 'Name1, Name2' (ein Paar je Zeile)</p>
+                <p className="my-4 text-black dark:text-white">Feedback Paare aus Runde {index + 1} der Form Name1, Name2 (ein Paar je Zeile)</p>
                 <div className="flex items-start gap-2">
                   <textarea
                     className="w-full p-2 border rounded bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
