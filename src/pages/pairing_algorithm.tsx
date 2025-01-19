@@ -16,11 +16,14 @@ export default function generateNextRound(
 
     let nextRound: string[][] = [];
     let validPairs = false;
+    let retryCount = 0;
+    const maxRetries = 100;  // Set a max number of retries
 
-    while (!validPairs) {
+    while (!validPairs && retryCount < maxRetries) {
         shuffleArray(participants);
         nextRound = [];
 
+        // Create pairs from shuffled participants
         for (let i = 0; i < participants.length; i += 2) {
             nextRound.push([participants[i], participants[i + 1]]);
         }
@@ -30,6 +33,12 @@ export default function generateNextRound(
                 !previousPairs.has(`${pair[0]},${pair[1]}`) &&
                 !previousPairs.has(`${pair[1]},${pair[0]}`)
         );
+
+        retryCount++;
+    }
+
+    if (retryCount >= maxRetries) {
+        throw new Error("Unable to generate valid pairs after multiple attempts.");
     }
 
     return nextRound;
