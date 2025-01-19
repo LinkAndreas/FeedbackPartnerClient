@@ -7,6 +7,7 @@ import generateNextRound from "./pairing_algorithm";
 export default function Overview() {
   const [participants, setParticipants] = useState<string>("");
   const [rounds, setRounds] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null); // Error state
 
   const addNewRound = () => {
     setRounds([...rounds, ""]);
@@ -46,14 +47,14 @@ export default function Overview() {
         .filter((pair) => pair.trim() !== "")
         .map((pair) => pair.split(",").map((name) => name.trim()))
     );
-    const nextRound: string[][] = generateNextRound(_participants, _previousRounds);
 
-    addRound(nextRound)
+    try {
+      const nextRound: string[][] = generateNextRound(_participants, _previousRounds);
+      addRound(nextRound);
+    } catch (error) {
+      setError("Es können keine weiteren Feedback-Paare ermittelt werden, ohne dass Paare erneut vorkommen. ");
+    }
   };
-
-  function add(round: string[][]) {
-    round.map((pair) => pair.join(", ")).join("\n")
-  }
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-white dark:bg-gray-900">
@@ -132,6 +133,21 @@ export default function Overview() {
             </button>
           </div>
         </div>
+
+        {/* Error Dialog */}
+        {error && (
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded shadow-lg max-w-sm w-full text-center dark:bg-gray-800">
+              <p className="text-xl text-gray-800 dark:text-gray-200">{error}</p>
+              <button
+                className="mt-4 bg-gray-300 text-gray-800 dark:bg-gray-600 dark:text-gray-200 px-4 py-2 rounded hover:bg-gray-400 dark:hover:bg-gray-500"
+                onClick={() => setError(null)}
+              >
+                Schließen
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ export default function generateNextRound(
     let nextRound: string[][] = [];
     let validPairs = false;
     let retryCount = 0;
-    const maxRetries = 100;  // Set a max number of retries
+    const maxRetries = 100000;  // Set a max number of retries
 
     while (!validPairs && retryCount < maxRetries) {
         shuffleArray(participants);
