@@ -1,7 +1,7 @@
 {
   "name": "feedback-partner-client",
   "homepage": "https://github.com/LinkAndreas/FeedbackPartnerClient",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "private": true,
   "scripts": {
     "bootstrap": "npm install --include=dev",
